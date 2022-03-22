@@ -68,6 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classExaDG_1_1ConvDiff_1_1ApplicationBase-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">ExaDG::ConvDiff::ApplicationBase&lt; dim, Number &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
@@ -110,6 +111,12 @@ std::shared_ptr&lt; <a class="el" href="structExaDG_1_1ConvDiff_1_1BoundaryDescr
 std::shared_ptr&lt; <a class="el" href="structExaDG_1_1ConvDiff_1_1FieldFunctions.html">FieldFunctions</a>&lt; dim &gt; const &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_field_functions</b> () const</td></tr>
 <tr class="separator:a709a76109c64d1af56177900469cbb5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aba6b07042970ec47dcd97aa0a8657067"><td class="memItemLeft" align="right" valign="top"><a id="aba6b07042970ec47dcd97aa0a8657067" name="aba6b07042970ec47dcd97aa0a8657067"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>parse_parameters</b> ()</td></tr>
+<tr class="separator:aba6b07042970ec47dcd97aa0a8657067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a76ea32968f9e2659e2b5456758092ce0"><td class="memItemLeft" align="right" valign="top"><a id="a76ea32968f9e2659e2b5456758092ce0" name="a76ea32968f9e2659e2b5456758092ce0"></a>
@@ -133,15 +140,9 @@ std::shared_ptr&lt; <a class="el" href="structExaDG_1_1ConvDiff_1_1BoundaryDescr
 <tr class="memitem:a3300c4ddfa77d831b983aaff648b7234"><td class="memItemLeft" align="right" valign="top"><a id="a3300c4ddfa77d831b983aaff648b7234" name="a3300c4ddfa77d831b983aaff648b7234"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>parameter_file</b></td></tr>
 <tr class="separator:a3300c4ddfa77d831b983aaff648b7234"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc75e7a97c484b2640ff682cfa453763"><td class="memItemLeft" align="right" valign="top"><a id="abc75e7a97c484b2640ff682cfa453763" name="abc75e7a97c484b2640ff682cfa453763"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>output_directory</b> = &quot;output/&quot;</td></tr>
-<tr class="separator:abc75e7a97c484b2640ff682cfa453763"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26a997eed9ef38a6d2b17d41ce2996c8"><td class="memItemLeft" align="right" valign="top"><a id="a26a997eed9ef38a6d2b17d41ce2996c8" name="a26a997eed9ef38a6d2b17d41ce2996c8"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>output_name</b> = &quot;output&quot;</td></tr>
-<tr class="separator:a26a997eed9ef38a6d2b17d41ce2996c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac77eaa30b9ef98c981faa351bb19fdc5"><td class="memItemLeft" align="right" valign="top"><a id="ac77eaa30b9ef98c981faa351bb19fdc5" name="ac77eaa30b9ef98c981faa351bb19fdc5"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>write_output</b> = false</td></tr>
-<tr class="separator:ac77eaa30b9ef98c981faa351bb19fdc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00b276a4f7fc66f8be7ddb3838d28082"><td class="memItemLeft" align="right" valign="top"><a id="a00b276a4f7fc66f8be7ddb3838d28082" name="a00b276a4f7fc66f8be7ddb3838d28082"></a>
+<a class="el" href="structExaDG_1_1OutputParameters.html">OutputParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><b>output_parameters</b></td></tr>
+<tr class="separator:a00b276a4f7fc66f8be7ddb3838d28082"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/exadg/convection_diffusion/user_interface/<a class="el" href="convection__diffusion_2user__interface_2application__base_8h_source.html">application_base.h</a></li>
