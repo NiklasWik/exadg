@@ -24,6 +24,7 @@
 
 // deal.II
 #include <deal.II/fe/fe_dgq.h>
+#include <deal.II/fe/fe_raviart_thomas.h>
 #include <deal.II/fe/fe_system.h>
 #include <deal.II/lac/la_parallel_block_vector.h>
 #include <deal.II/lac/la_parallel_vector.h>
@@ -223,7 +224,7 @@ public:
   std::shared_ptr<dealii::Mapping<dim> const>
   get_mapping() const;
 
-  dealii::FESystem<dim> const &
+  dealii::FiniteElement<dim> const &
   get_fe_u() const;
 
   dealii::FE_DGQ<dim> const &
@@ -550,7 +551,7 @@ private:
   /*
    * Basic finite element ingredients.
    */
-  std::shared_ptr<dealii::FESystem<dim>> fe_u;
+  std::shared_ptr<dealii::FiniteElement<dim>> fe_u;
   dealii::FE_DGQ<dim>                    fe_p;
   dealii::FE_DGQ<dim>                    fe_u_scalar;
 

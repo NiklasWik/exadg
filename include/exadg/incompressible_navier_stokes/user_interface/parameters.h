@@ -287,6 +287,9 @@ public:
   // Grid data
   GridData grid;
 
+  // type of spatial discretization approach
+  SpatialDiscretization spatial_discretization;
+
   // Polynomial degree of velocity shape functions
   unsigned int degree_u;
 

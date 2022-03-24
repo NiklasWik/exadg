@@ -92,7 +92,7 @@ Parameters::Parameters()
 
     // grid
     grid(GridData()),
-
+    spatial_discretization(SpatialDiscretization::Undefined),
     // polynomial degrees
     degree_u(2),
     degree_p(DegreePressure::MixedOrder),
@@ -344,6 +344,9 @@ Parameters::check(dealii::ConditionalOStream const & pcout) const
   // SPATIAL DISCRETIZATION
 
   grid.check();
+
+  AssertThrow(spatial_discretization != SpatialDiscretization::Undefined,
+              dealii::ExcMessage("parameter must be defined."));
 
   // For the coupled solution approach, degree_p = 0 is allowed in principle.
   // For projection-type methods, degree_p > 0 has to be fulfilled (the SIPG discretization
@@ -736,6 +739,8 @@ Parameters::print_parameters_spatial_discretization(dealii::ConditionalOStream c
   pcout << std::endl << "Spatial discretization:" << std::endl;
 
   grid.print(pcout);
+
+  print_parameter(pcout, "Element type", enum_to_string(spatial_discretization));
 
   print_parameter(pcout, "Polynomial degree velocity", degree_u);
   print_parameter(pcout, "Polynomial degree pressure", enum_to_string(degree_p));

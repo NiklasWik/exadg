@@ -354,6 +354,33 @@ enum_to_string(DegreePressure const enum_type)
 /**************************************************************************************/
 
 std::string
+enum_to_string(SpatialDiscretization const enum_type)
+{
+  std::string string_type;
+
+  switch(enum_type)
+  {
+    case SpatialDiscretization::Undefined:
+      string_type = "Undefined";
+      break;
+    case SpatialDiscretization::DG:
+      string_type = "DG";
+      break;
+    case SpatialDiscretization::CG:
+      string_type = "CG";
+      break;
+    case SpatialDiscretization::HDIV:
+      string_type = "HDIV (Raviart-Thomas)";
+      break;
+    default:
+      AssertThrow(false, dealii::ExcMessage("Not implemented."));
+      break;
+  }
+
+  return string_type;
+}
+
+std::string
 enum_to_string(TypeDirichletBCs const enum_type)
 {
   std::string string_type;

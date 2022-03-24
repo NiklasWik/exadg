@@ -236,6 +236,22 @@ enum_to_string(ConvergenceCriterionSteadyProblem const enum_type);
 /**************************************************************************************/
 
 /*
+ *  Spatial discretization method. 
+ *  
+ *  HDIV implies Raviart-Thomas 
+ */
+enum class SpatialDiscretization
+{
+  Undefined,
+  DG,
+  CG,
+  HDIV
+};
+
+std::string
+enum_to_string(SpatialDiscretization const enum_type);
+
+/*
  *  Polynomial degree of pressure shape functions in relation to velocity degree
  */
 enum class DegreePressure

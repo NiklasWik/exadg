@@ -53,7 +53,6 @@ SpatialOperatorBase<dim, Number>::SpatialOperatorBase(
     field(field_in),
     dof_index_first_point(0),
     evaluation_time(0.0),
-    fe_u(new dealii::FESystem<dim>(dealii::FE_DGQ<dim>(parameters_in.degree_u), dim)),
     fe_p(parameters_in.get_degree_p(parameters_in.degree_u)),
     fe_u_scalar(parameters_in.degree_u),
     dof_handler_u(*grid_in->triangulation),
@@ -249,6 +248,28 @@ template<int dim, typename Number>
 void
 SpatialOperatorBase<dim, Number>::distribute_dofs()
 {
+  if(param.spatial_discretization == SpatialDiscretization::DG){
+    fe_u = std::make_shared<dealii::FESystem<dim>>(dealii::FE_DGQ<dim>(param.degree_u), dim);
+
+    pcout << std::endl
+        << "Discontinuous Galerkin finite element discretization:" << std::endl
+        << std::endl
+        << std::flush;
+  }
+  else if(param.spatial_discretization == SpatialDiscretization::HDIV){
+    // In-parameter for RT is the degree in tangent direction, i.e the degree in normal direction
+    // will be degree+1. The FE also saves fe_u.degree = degree+1. 
+    // degree - 1 is used so that the same Gauss quadrature can be used for exact integration. 
+    fe_u = std::make_shared<dealii::FE_RaviartThomasNodal<dim>>(param.degree_u - 1); 
+
+    pcout << std::endl
+        << "Hdiv-conforming Raviart-Thomas finite element discretization:" << std::endl
+        << std::endl
+        << std::flush;
+  }
+  else
+    AssertThrow(false, dealii::ExcMessage("FE not implemented."));
+
   // enumerate degrees of freedom
   dof_handler_u.distribute_dofs(*fe_u);
   dof_handler_p.distribute_dofs(fe_p);
@@ -259,10 +280,6 @@ SpatialOperatorBase<dim, Number>::distribute_dofs()
   unsigned int const ndofs_per_cell_pressure =
     dealii::Utilities::pow(param.get_degree_p(param.degree_u) + 1, dim);
 
-  pcout << std::endl
-        << "Discontinuous Galerkin finite element discretization:" << std::endl
-        << std::endl
-        << std::flush;
 
   pcout << "Velocity:" << std::endl;
   print_parameter(pcout, "degree of 1D polynomials", param.degree_u);
@@ -691,7 +708,7 @@ SpatialOperatorBase<dim, Number>::get_mapping() const
 }
 
 template<int dim, typename Number>
-dealii::FESystem<dim> const &
+dealii::FiniteElement<dim> const &
 SpatialOperatorBase<dim, Number>::get_fe_u() const
 {
   return *fe_u;
