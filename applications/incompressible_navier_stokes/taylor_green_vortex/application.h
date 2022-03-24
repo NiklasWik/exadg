@@ -195,6 +195,7 @@ private:
 
     // SPATIAL DISCRETIZATION
     this->param.grid.triangulation_type = TriangulationType::Distributed;
+    this->param.spatial_discretization = SpatialDiscretization::HDIV;
     this->param.grid.mapping_degree     = this->param.degree_u;
     this->param.degree_p                = DegreePressure::MixedOrder;
 
@@ -219,13 +220,13 @@ private:
     this->param.divu_formulation  = FormulationVelocityDivergenceTerm::Weak;
 
     // div-div and continuity penalty
-    this->param.use_divergence_penalty                     = true;
+    this->param.use_divergence_penalty                     = false;
     this->param.divergence_penalty_factor                  = 1.0e0;
-    this->param.use_continuity_penalty                     = true;
+    this->param.use_continuity_penalty                     = false;
     this->param.continuity_penalty_factor                  = this->param.divergence_penalty_factor;
     this->param.continuity_penalty_components              = ContinuityPenaltyComponents::Normal;
-    this->param.apply_penalty_terms_in_postprocessing_step = true;
-    this->param.continuity_penalty_use_boundary_data       = true;
+    this->param.apply_penalty_terms_in_postprocessing_step = false;
+    this->param.continuity_penalty_use_boundary_data       = false;
 
     // TURBULENCE
     this->param.use_turbulence_model = false;
@@ -240,13 +241,13 @@ private:
 
     // pressure Poisson equation
     this->param.solver_data_pressure_poisson         = SolverData(1000, ABS_TOL, REL_TOL, 100);
-    this->param.preconditioner_pressure_poisson      = PreconditionerPressurePoisson::Multigrid;
-    this->param.multigrid_data_pressure_poisson.type = MultigridType::cphMG;
+    this->param.preconditioner_pressure_poisson      = PreconditionerPressurePoisson::None;
+    this->param.multigrid_data_pressure_poisson.type = MultigridType::Undefined;
 
     // projection step
     this->param.solver_projection         = SolverProjection::CG;
     this->param.solver_data_projection    = SolverData(1000, ABS_TOL, REL_TOL);
-    this->param.preconditioner_projection = PreconditionerProjection::InverseMassMatrix;
+    this->param.preconditioner_projection = PreconditionerProjection::None;
 
     // HIGH-ORDER DUAL SPLITTING SCHEME
 
@@ -257,7 +258,7 @@ private:
     // viscous step
     this->param.solver_viscous         = SolverViscous::CG;
     this->param.solver_data_viscous    = SolverData(1000, ABS_TOL, REL_TOL);
-    this->param.preconditioner_viscous = PreconditionerViscous::InverseMassMatrix;
+    this->param.preconditioner_viscous = PreconditionerViscous::None;
 
     // PRESSURE-CORRECTION SCHEME
 
@@ -273,7 +274,7 @@ private:
     else
       this->param.solver_data_momentum = SolverData(1e4, ABS_TOL, REL_TOL, 100);
 
-    this->param.preconditioner_momentum        = MomentumPreconditioner::InverseMassMatrix;
+    this->param.preconditioner_momentum        = MomentumPreconditioner::None;
     this->param.update_preconditioner_momentum = true;
 
     // formulation
