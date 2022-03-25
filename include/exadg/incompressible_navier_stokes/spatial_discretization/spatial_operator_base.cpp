@@ -248,7 +248,7 @@ template<int dim, typename Number>
 void
 SpatialOperatorBase<dim, Number>::distribute_dofs()
 {
-  if(param.spatial_discretization == SpatialDiscretization::DG){
+  if(param.spatial_discretization == SpatialDiscretization::L2){
     fe_u = std::make_shared<dealii::FESystem<dim>>(dealii::FE_DGQ<dim>(param.degree_u), dim);
 
     pcout << std::endl
@@ -264,6 +264,8 @@ SpatialOperatorBase<dim, Number>::distribute_dofs()
 
     pcout << std::endl
         << "Hdiv-conforming Raviart-Thomas finite element discretization:" << std::endl
+        << "(Note that the given degree for the velocity is the degree in normal direction." << std::endl
+        << " The degree in tangent direction is degree - 1)" << std::endl
         << std::endl
         << std::flush;
   }
@@ -1186,7 +1188,20 @@ void
 SpatialOperatorBase<dim, Number>::apply_inverse_mass_operator(VectorType &       dst,
                                                               VectorType const & src) const
 {
-  inverse_mass_velocity.apply(dst, src);
+  if(param.spatial_discretization == SpatialDiscretization::L2)
+  {
+    inverse_mass_velocity.apply(dst, src);
+  }
+  else if(param.spatial_discretization == SpatialDiscretization::HDIV)
+  {
+    // Todo: check if src == dst => cope src to new vector. 
+    //       solve mass system instead of applying the inverse mass
+    AssertThrow(false, dealii::ExcMessage("Not implemented."));
+  }
+  else 
+  {
+    AssertThrow(false, dealii::ExcMessage("Not implemented."));
+  }
 }
 
 template<int dim, typename Number>

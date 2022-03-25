@@ -613,7 +613,7 @@ protected:
   mutable MomentumOperator<dim, Number> momentum_operator;
 
   /*
-   * Inverse mass operator.
+   * Inverse mass operator (for L2 spaces)
    */
   InverseMassOperator<dim, dim, Number> inverse_mass_velocity;
   InverseMassOperator<dim, 1, Number>   inverse_mass_velocity_scalar;

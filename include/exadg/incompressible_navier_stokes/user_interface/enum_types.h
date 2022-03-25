@@ -243,8 +243,7 @@ enum_to_string(ConvergenceCriterionSteadyProblem const enum_type);
 enum class SpatialDiscretization
 {
   Undefined,
-  DG,
-  CG,
+  L2,
   HDIV
 };
 

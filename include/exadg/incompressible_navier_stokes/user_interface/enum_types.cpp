@@ -363,11 +363,8 @@ enum_to_string(SpatialDiscretization const enum_type)
     case SpatialDiscretization::Undefined:
       string_type = "Undefined";
       break;
-    case SpatialDiscretization::DG:
-      string_type = "DG";
-      break;
-    case SpatialDiscretization::CG:
-      string_type = "CG";
+    case SpatialDiscretization::L2:
+      string_type = "L2";
       break;
     case SpatialDiscretization::HDIV:
       string_type = "HDIV (Raviart-Thomas)";

@@ -253,6 +253,9 @@ Parameters::check(dealii::ConditionalOStream const & pcout) const
   // ALE
   if(ale_formulation)
   {
+    AssertThrow(spatial_discretization == SpatialDiscretization::L2, 
+          dealii::ExcMessage("ALE is currently only implemented for L2 conforming function spaces."));
+
     AssertThrow(
       formulation_convective_term == FormulationConvectiveTerm::ConvectiveFormulation,
       dealii::ExcMessage(
@@ -406,9 +409,17 @@ Parameters::check(dealii::ConditionalOStream const & pcout) const
     }
   }
 
+  if(spatial_discretization == SpatialDiscretization::HDIV)
+  {
+    AssertThrow(use_divergence_penalty == false || use_continuity_penalty == false, 
+                dealii::ExcMessage("Penalty terms can not be used in case of Hdiv function spaces. Think about using L2 instead, or deactivate the penatly terms."));
+  }
+
   // HIGH-ORDER DUAL SPLITTING SCHEME
   if(temporal_discretization == TemporalDiscretization::BDFDualSplittingScheme)
   {
+    AssertThrow(spatial_discretization == SpatialDiscretization::L2, 
+                dealii::ExcMessage("Dual splitting only works for L2. If you want to use Hdiv conforming elements you have to use the coupled solution"));
     AssertThrow(order_extrapolation_pressure_nbc <= order_time_integrator,
                 dealii::ExcMessage("Invalid parameter order_extrapolation_pressure_nbc!"));
 
@@ -436,6 +447,9 @@ Parameters::check(dealii::ConditionalOStream const & pcout) const
   // PRESSURE-CORRECTION SCHEME
   if(temporal_discretization == TemporalDiscretization::BDFPressureCorrection)
   {
+    AssertThrow(spatial_discretization == SpatialDiscretization::L2, 
+                dealii::ExcMessage("Pressure correction only works for L2. If you want to use Hdiv conforming elements you have to use the coupled solution"));
+
     AssertThrow(order_pressure_extrapolation <= order_time_integrator,
                 dealii::ExcMessage("Invalid parameter order_pressure_extrapolation!"));
 
@@ -503,6 +517,9 @@ Parameters::check(dealii::ConditionalOStream const & pcout) const
       use_cell_based_face_loops == true,
       dealii::ExcMessage(
         "Cell based face loops have to be used for matrix-free implementation of block diagonal preconditioner."));
+
+    AssertThrow(spatial_discretization == SpatialDiscretization::L2, 
+                dealii::ExcMessage("Block diagonal preconditioner does not work for Hdiv conforming elements")); 
   }
 
 
